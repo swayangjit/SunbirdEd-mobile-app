@@ -104,7 +104,7 @@ function updateGradleProperties() {
             return;
         }
         if (!data.match("# App.properties")) {
-            const data = `\n # App.properties \n app_name=${properties['app_name']} \n app_id=${properties['app_id']} \n flavor=${properties['flavor']}`
+            const data = `\n # App.properties \napp_name=${properties['app_name']}\napp_id=${properties['app_id']}\nflavor=${properties['flavor']}`
             fs.appendFileSync("android/gradle.properties", data);
         }
     })
