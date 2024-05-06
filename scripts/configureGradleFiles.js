@@ -60,6 +60,7 @@ function updateCapacitorPluginModuleNameSpace() {
             }
         });
     });
+    console.log("Updated namespace in capacitor.cordova.android.plugins");
 }
 
 function updateAppBuildGradle() {
@@ -93,6 +94,7 @@ function updateAppBuildGradle() {
             }
         });
     });
+    console.log("Updated versionCode and versionName along with appId in app/build.gradle");
 }
 
 function updateGradleProperties() {
@@ -106,4 +108,5 @@ function updateGradleProperties() {
             fs.appendFileSync("android/gradle.properties", data);
         }
     })
+    console.log("Merged gradle properties with SUnbird properties");
 }
