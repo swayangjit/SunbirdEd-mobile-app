@@ -15,7 +15,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
 		versionCode 1
         ext.buildNumber = System.getenv("TRAVIS_BUILD_NUMBER") ?: "local"
-		versionName "8.0.0"
+		versionName "8.0.35"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -37,7 +37,6 @@ android {
 
     tasks.whenTaskAdded { task ->
         def name = task.name
-        println "~~~~~~~~~~~name ${name}"
         //Skip some unnecessary tasks
         if (name.startsWith("bundle")
                 && !name.contains("Classes")
@@ -46,11 +45,8 @@ android {
                 && name != "bundleDebug") {
 
             def renameTaskName = "rename${task.name.capitalize()}Aab"
-            println "task.name ${task.name}"
             def flavor = "${flavor}"
             def type = task.name.toLowerCase().replace("bundle", "").replace("${flavor}", "").toLowerCase()
-            println "Flavour ${flavor}"
-            println "Type ${type}"
             if (flavor == null || type == null) return
 
             def outputName = "${app_name}-$flavor-$version".toLowerCase()

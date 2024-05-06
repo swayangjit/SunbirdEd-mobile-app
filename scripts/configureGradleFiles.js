@@ -69,7 +69,7 @@ function updateAppBuildGradle() {
         '\t\tresValue("string", "app_id", "${app_id}")'
     let androidGradle = "android/app/build.gradle";
     let versionCodeStr = `\t\tversionCode ${properties['app_version_code']}`
-    let versionNameStr = `\t\tversionName ${properties['version_name']}`
+    let versionNameStr = `\t\tversionName "${properties['version_name']}"`
     fs.readFile(androidGradle, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
