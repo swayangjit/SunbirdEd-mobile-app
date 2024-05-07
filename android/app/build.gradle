@@ -34,47 +34,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    tasks.whenTaskAdded { task ->
-        def name = task.name
-        //Skip some unnecessary tasks
-        if (name.startsWith("bundle")
-                && !name.contains("Classes")
-                && !name.contains("Resources")
-                && name != "bundle"
-                && name != "bundleDebug") {
-
-            def renameTaskName = "rename${task.name.capitalize()}Aab"
-            def flavor = "${flavor}"
-            def type = task.name.toLowerCase().replace("bundle", "").replace("${flavor}", "").toLowerCase()
-            if (flavor == null || type == null) return
-
-            def outputName = "${app_name}-$flavor-$version".toLowerCase()
-            if (!flavor.equals("production")) {
-                outputName = "${app_name}-$flavor-$version".toLowerCase();
-            } else {
-                outputName = "${app_name}-$version".toLowerCase();
-            }
-
-
-            tasks.create(renameTaskName) {
-                def typeInCaps = "${type}".capitalize()
-                def path = "${rootDir}/app/build/outputs/bundle/${flavor}${typeInCaps}/"
-                def originalFile = "${path}app-${flavor}-${type}.aab"
-                println "originalFile ${originalFile}"
-                println "outputName ${outputName}"
-                doLast {
-                    if (file("$originalFile").exists()) {
-                        ant.move file: "$originalFile",
-                                tofile: "$path/${outputName}.aab"
-                    }
-                }
-            }
-
-            task.finalizedBy(renameTaskName)
+ applicationVariants.configureEach { variant ->
+        def artifactName = "${app_name.toLowerCase()}-${variant.versionName}-${variant.buildType.name}"
+        variant.outputs.configureEach {
+            outputFileName = "${artifactName}.apk"
+        }
+        tasks.named("sign${variant.name.capitalize()}Bundle", FinalizeBundleTask) {
+            File file = finalBundleFile.asFile.get()
+            File finalFile = new File(file.parentFile, "${artifactName}.aab")
+            finalBundleFile.set(finalFile)
         }
     }
-
 } // android
 
 
