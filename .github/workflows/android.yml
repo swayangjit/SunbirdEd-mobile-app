@@ -81,11 +81,11 @@ jobs:
     - name: Install Firebase tools
       run: npm i -g firebase-tools@10.9.1
 
-    - name: Deploy to firebase
-      run: cd android/app/build/outputs/bundle/release && firebase appdistribution:distribute sunbird-6.0.local-release.aab  \
-           --token ${{ secrets.FIREBASE_TOKEN }}  \
-           --app ${{ secrets.FIRBASE_APP_ID }}  \
-           --groups developer
+    # - name: Deploy to firebase
+    #   run: cd android/app/build/outputs/bundle/release && firebase appdistribution:distribute sunbird-6.0.local-release.aab  \
+    #        --token ${{ secrets.FIREBASE_TOKEN }}  \
+    #        --app ${{ secrets.FIRBASE_APP_ID }}  \
+    #        --groups developer
 
     - name: Upload APK
       uses: actions/upload-artifact@v3.1.2
