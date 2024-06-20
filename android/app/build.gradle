@@ -41,7 +41,7 @@ android {
         }
     }
  applicationVariants.configureEach { variant ->
-        def artifactName = "${app_name.toLowerCase()}-${variant.getVersionName()}-${variant.buildType.name}"
+        def artifactName = "${app_name.toLowerCase().replaceAll("\\s","")}-${variant.getVersionName()}-${variant.buildType.name}"
         variant.outputs.configureEach {
             outputFileName = "${artifactName}.apk"
         }
