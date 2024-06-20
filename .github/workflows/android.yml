@@ -79,7 +79,7 @@ jobs:
       run: cd android && ./gradlew assembleDebug
 
     - name: Install Firebase tools
-      run: npm i -g firebase-tools
+      run: npm i -g firebase-tools@10.9.1
 
     - name: Deploy to firebase
       run: cd android/app/build/outputs/bundle/release && firebase appdistribution:distribute sunbird-6.0.local-release.aab  \
