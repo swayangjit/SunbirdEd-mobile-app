@@ -65,14 +65,6 @@ jobs:
         fileDir: '/home/runner/work/SunbirdEd-mobile-app/SunbirdEd-mobile-app/android/app/keystore/'
         encodedString: ${{ secrets.KEYSTORE }}
 
-    - name: Decode signing properties
-      id: decode_properties
-      uses: timheuer/base64-to-file@v1.2
-      with:
-        fileName: 'signing.properties'
-        fileDir: '/home/runner/work/SunbirdEd-mobile-app/SunbirdEd-mobile-app/android/'
-        encodedString: ${{ secrets.PROPERTIES }}
-
     - name: Build Ionic assets
       run: ionic build --prod && npx cap sync
 
